@@ -12,12 +12,6 @@ The module takes in the necessary parameters such as VPC ID, subnet IDs, and sec
 
 ## How does it work
 
-
-## Known Errors
-If you receive this error just re-apply as it takes somewhat longer to delete the referenced endpoint url
-
-![alt text](images/image.png)
-
 ### First use after you clone this repository or when .pre-commit-config.yaml is updated
 
 Run `pre-commit install` to install any guardrails implemented using pre-commit.
@@ -25,8 +19,46 @@ Run `pre-commit install` to install any guardrails implemented using pre-commit.
 See [pre-commit installation](https://pre-commit.com/#install) on how to install pre-commit.
 
 ## Usage
+Example usage:
 
-see example
+```terraform
+module "vpc_ecr_endpoint" {
+   source = "path/to/module"
+
+   vpc_id              = "vpc-12345678"
+   subnet_ids          = ["subnet-12345678", "subnet-87654321"]
+   security_group_ids  = ["sg-12345678"]
+
+   endpoint_policy     = <<EOF
+      {
+         "Statement": [
+            {
+               "Sid": "AllowECRAccess",
+               "Principal": "*",
+               "Action": [
+                  "ecr:GetAuthorizationToken",
+                  "ecr:BatchCheckLayerAvailability",
+                  "ecr:GetDownloadUrlForLayer",
+                  "ecr:GetRepositoryPolicy",
+                  "ecr:DescribeRepositories",
+                  "ecr:ListImages",
+                  "ecr:DescribeImages",
+                  "ecr:BatchGetImage"
+               ],
+               "Effect": "Allow",
+               "Resource": "*"
+            }
+         ]
+      }
+   EOF
+
+   enable_private_dns_resolution = true
+}
+```
+## Known Errors
+If you receive this error just re-apply as it takes somewhat longer to delete the referenced endpoint url
+
+![alt text](images/image.png)
 
 <!-- BEGIN_TF_DOCS -->
 ## Providers
