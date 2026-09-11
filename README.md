@@ -1,4 +1,4 @@
-# Terraform AWS ECR-VPC-endpoint ![](https://img.shields.io/github/actions/workflow/status/wearetechnative/terraform-aws-ecr-vpc-endpoint/tflint.yaml?style=plastic)
+# Terraform AWS ECR-VPC-endpoint ![](https://img.shields.io/github/actions/workflow/status/wearetechnative/terraform-aws-ecr-vpc-endpoint/tflint.yaml?branch=main&style=plastic)
 
 <!-- SHIELDS -->
 
